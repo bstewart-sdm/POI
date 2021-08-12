@@ -28,17 +28,6 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: PowerShell@1
-  displayName: 'PowerShell Script'
-  inputs:
-    scriptType: inlineScript
-    inlineScript: |
-     Add-Type -AssemblyName System.Security
-     Write-Host "##vso[build.addbuildtag]Deploy" 
-    failOnStandardError: false
-  continueOnError: true
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -66,3 +55,14 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    
+- task: PowerShell@1
+  displayName: 'PowerShell Script'
+  inputs:
+    scriptType: inlineScript
+    inlineScript: |
+     Add-Type -AssemblyName System.Security
+     Write-Host "##vso[build.addbuildtag]Deploy" 
+    failOnStandardError: false
+  continueOnError: true
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))

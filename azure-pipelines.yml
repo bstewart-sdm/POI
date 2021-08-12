@@ -34,13 +34,6 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: DownloadBuildArtifacts@1
-  inputs:
-    buildType: 'current'
-    downloadType: 'single'
-    artifactName: 'AzureOpenKhack'
-    downloadPath: '$(System.ArtifactsDirectory)'
-
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: '$(Build.BinariesDirectory)'
